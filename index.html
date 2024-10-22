@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WELCOME TO THE GAME!</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f2f2f2; /* Soft background color */
+            font-family: 'Arial', sans-serif; /* Font family */
+        }
+
+        form {
+            background-color: white; /* White background for the form */
+            padding: 15px;
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            display: flex;
+            flex-direction: column;
+            align-items: stretch; /* Stretch form elements */
+            width: 350px; /* Fixed width for the form */
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            text-align: center; /* Centered heading */
+            color: #333; /* Darker text color */
+        }
+
+        h1 {
+            margin-bottom: 20px; /* Space below heading */
+            text-align: center; /* Centered heading */
+            color: #4CAF50; /* Color for welcome heading */
+        }
+
+        label {
+            margin: 10px 0 5px; /* Space above labels */
+            color: #555; /* Slightly lighter text color */
+        }
+
+        input, select {
+            margin: 5px 0 10px; /* Space below input fields */
+            padding: 10px; /* Inner padding */
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 16px; /* Font size */
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 16px; /* Font size */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        /* Responsive design */
+        @media (max-width: 400px) {
+            form {
+                width: 90%; /* Full width on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome</h1> <!-- Added Welcome Heading -->
+    <h2>WELCOME TO THE GAME!</h2>
+    <form id="demographicForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="contact">Contact No:</label>
+        <input type="tel" id="contact" name="contact" required>
+
+        <label for="roll">Roll No:</label>
+        <input type="text" id="roll" name="roll" required>
+
+        <label for="email">Email ID:</label>
+        <input type="email" id="email" name="email" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('demographicForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form submission
+
+            // Collecting form data
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const contact = document.getElementById('contact').value;
+            const roll = document.getElementById('roll').value;
+            const email = document.getElementById('email').value;
+
+            // Creating CSV content
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Name,Age,Gender,Contact No,Roll No,Email ID\n"; // header
+            csvContent += `${name},${age},${gender},${contact},${roll},${email}\n`; // data
+
+            // Encoding the CSV content and creating a download link
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'demographic_data.csv');
+            document.body.appendChild(link); // Required for FF
+
+            link.click(); // Trigger the download
+
+            // Redirect to another page after download
+            window.location.href = 'jdsd.html'; // Change this to your target page
+        });
+    </script>
+</body>
+</html>

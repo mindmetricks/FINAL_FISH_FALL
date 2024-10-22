@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .feedback-container h2, .thankyou-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .feedback-container textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 15px;
+            margin-right: 15px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: none;
+            font-size: 16px;
+        }
+
+        .feedback-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .feedback-container button:hover {
+            background-color: #45a049;
+        }
+
+        .thankyou-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="feedback-container" id="feedbackContainer">
+        <h2>Kindly share your experience with the game!</h2>
+        <textarea id="feedback" placeholder="Enter your feedback here..."></textarea><br>
+        <button onclick="submitFeedback()">Submit</button>
+    </div>
+
+    <div class="thankyou-container" id="thankyouContainer">
+        <h2>Thank you for your participation!</h2>
+        <p>We will share with you a Google form a week later as a part of this Experiment.</p>
+    </div>
+</div>
+
+<script>
+    function submitFeedback() {
+        // Get the feedback value
+        const feedback = document.getElementById('feedback').value;
+
+        // Check if feedback is empty
+        if (!feedback) {
+            alert("Please enter your feedback before submitting.");
+            return;
+        }
+
+        // Create a CSV content
+        const csvContent = 'data:text/csv;charset=utf-8,Feedback\n' + feedback;
+
+        // Encode the content
+        const encodedUri = encodeURI(csvContent);
+
+        // Create a temporary link element for download
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "feedback.csv");
+
+        // Trigger download
+        document.body.appendChild(link); // Required for Firefox
+        link.click();
+
+        // Remove the link after download
+        document.body.removeChild(link);
+
+        // Hide the feedback form and show the thank you message
+        document.getElementById('feedbackContainer').style.display = 'none';
+        document.getElementById('thankyouContainer').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
